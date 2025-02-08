@@ -8,7 +8,11 @@ export const LearnModuleContext = createContext<
   isLoaded: false,
   data: {
     answers: [],
-    checkQuestionCallback: UNDEFINED_FUNCTION,
+    checkQuestionCallback: async () => ({
+      correctAnswer: "",
+      isCorrect: false,
+    }),
+    nextQuestionCallback: UNDEFINED_FUNCTION,
     itemId: -1,
     learnData: "",
     learnStatus: LearnStatus.UnTouched,

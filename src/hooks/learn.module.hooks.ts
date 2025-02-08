@@ -1,5 +1,4 @@
 import {
-  AnswerResult,
   AsyncData,
   QuestionData,
   ReactiveQuestionData,
@@ -47,27 +46,25 @@ export function useQuizData(): AsyncData<ReactiveQuestionData> {
   const [currentQuestion, setCurrentQuestion] =
     useState<QuestionData>(UNDEFINED_QUESTION);
   const checkQuestionCallback = useCallback(
-    async(
-      answer: string
-    ) => {
+    async (answer: string) => {
       setIsLoaded(false);
       setIsLoaded(true);
-      return (await quizService.checkAnswer(answer));
+      return await quizService.checkAnswer(answer);
     },
-    [quizService, setIsLoaded, setCurrentQuestion],
+    [quizService, setIsLoaded],
   );
-  const nextQuestionCallback = useCallback(
-    () => {
-      setIsLoaded(false);
-      generateQuestion(quizService, setIsLoaded, setCurrentQuestion);
-    },
-    [setIsLoaded, setCurrentQuestion, quizService],
-  );
+  const nextQuestionCallback = useCallback(() => {
+    setIsLoaded(false);
+    generateQuestion(quizService, setIsLoaded, setCurrentQuestion);
+  }, [setIsLoaded, setCurrentQuestion, quizService]);
 
   useEffect(
     () => generateQuestion(quizService, setIsLoaded, setCurrentQuestion),
     [quizService, setIsLoaded, setCurrentQuestion],
   );
 
-  return { isLoaded, data: { ...currentQuestion, checkQuestionCallback, nextQuestionCallback } };
+  return {
+    isLoaded,
+    data: { ...currentQuestion, checkQuestionCallback, nextQuestionCallback },
+  };
 }
