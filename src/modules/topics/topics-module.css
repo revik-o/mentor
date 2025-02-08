@@ -1,0 +1,25 @@
+#add-new-topics {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    border-radius: 100%;
+    width: 55px;
+    height: 55px;
+    margin: 15px;
+}
+
+#topic-list {
+    margin: 0px auto;
+    width: 70%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+    row-gap: 10px;
+}
+
+#topics-module-upload-vocabulary {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    margin: 15px;
+}

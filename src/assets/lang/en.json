@@ -1,0 +1,21 @@
+{
+    "error": {},
+    "title": {
+        "generic": {
+            "ok": "Ok",
+            "cancel": "Cancel"
+        },
+        "module": {
+            "welcome": {
+                "mainTitle": "Learn whatever you want...",
+                "startButton": "START"
+            },
+            "topics": {
+                "crateTopicDialog": {
+                    "header": "Add new topic",
+                    "inputPlaceholder": "Topic name..."
+                }
+            }
+        }
+    }
+}

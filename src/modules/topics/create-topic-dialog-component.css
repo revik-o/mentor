@@ -1,0 +1,11 @@
+.create-new-topic {
+    text-align: center;
+}
+
+.create-new-topic > * {
+    margin-bottom: 10px;
+}
+
+.cancel-btn {
+    margin-left: 5px;
+}

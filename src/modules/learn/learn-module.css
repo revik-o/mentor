@@ -1,0 +1,14 @@
+#learn-module-go-back {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    margin: 15px;
+}
+
+#learn-module-main-block {
+    text-align: center;
+}
+
+#answers-block button {
+    margin-top: 5px;
+}
