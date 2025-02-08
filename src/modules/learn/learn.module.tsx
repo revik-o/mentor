@@ -11,9 +11,9 @@ import EntryModule from "../entry.module";
 import LoaderComponent from "../../components/loader/loader.component";
 import LearnComponentAnswersStage from "./stage/answer.stage.component";
 import LearnComponentInputStage from "./stage/input-stage.component";
+import links from "../../links.d";
 import "./learn-module.css";
 
-import links from "../../links.d";
 function LearnComponent(): ReactNode {
   const topicId = useTopicId();
   const navigate = useNavigate();

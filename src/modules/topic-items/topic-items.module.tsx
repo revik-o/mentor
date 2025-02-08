@@ -11,6 +11,7 @@ import LoaderComponent from "../../components/loader/loader.component";
 import FloatingDialogComponent from "../../components/floating-dialog/floating-dialog.component";
 import CreateTopicItemDialogComponent from "./create-topic-item-dialog.component";
 import TopicItemElement from "./topic-item.component";
+import links from "../../links.d";
 import "./topic-items-module.css";
 
 interface TopicItemsModuleContextProperties {
@@ -38,7 +39,6 @@ function TopicItemsModuleContext({
     </EntryModule>
   );
 }
-import links from "../../links.d";
 
 function TopicItemsComponents(): ReactNode {
   const navigate = useNavigate();

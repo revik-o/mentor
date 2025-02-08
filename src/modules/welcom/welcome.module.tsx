@@ -2,8 +2,8 @@ import { ReactNode, useCallback } from "react";
 import { useNavigate } from "react-router";
 import languageService from "../../services/language.service";
 import logo from "../../assets/logo.svg";
-import "./welcome-module.css";
 import links from "../../links.d";
+import "./welcome-module.css";
 
 const lang = languageService.dictionary;
 const welcomeModuleLang = lang.title.module.welcome;
