@@ -38,6 +38,7 @@ function TopicItemsModuleContext({
     </EntryModule>
   );
 }
+import links from "../../links.d";
 
 function TopicItemsComponents(): ReactNode {
   const navigate = useNavigate();
@@ -52,10 +53,13 @@ function TopicItemsComponents(): ReactNode {
     [setShowAddNewTopicItemDialog],
   );
   const startLearnCallback = useCallback(
-    () => navigate(`/topic/learn/${topicId}`),
+    () => navigate(`${links.learnTopicComponent}/${topicId}`),
     [navigate, topicId],
   );
-  const goBackCallback = useCallback(() => navigate("/topics"), [navigate]);
+  const goBackCallback = useCallback(
+    () => navigate(links.topicsComponent),
+    [navigate],
+  );
   const closeDialogCallback = useCallback(
     () => setShowAddNewTopicItemDialog(false),
     [setShowAddNewTopicItemDialog],

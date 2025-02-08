@@ -4,6 +4,7 @@ import IndexModule from "./modules/welcom/welcome.module";
 import TopicsModule from "./modules/topics/topics.module";
 import TopicItemsModule from "./modules/topic-items/topic-items.module";
 import LearnModule from "./modules/learn/learn.module";
+import links from "./links.d";
 import "./index.css";
 
 const ANIMATION_DURATION = 500;
@@ -18,10 +19,16 @@ setTimeout(() => {
   createRoot(rootElement).render(
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<IndexModule />} />
-        <Route path="/topics" element={<TopicsModule />} />
-        <Route path="/topic/:id" element={<TopicItemsModule />} />
-        <Route path="/topic/learn/:id" element={<LearnModule />} />
+        <Route path={links.topicsComponent} element={<TopicsModule />} />
+        <Route
+          path={`${links.topicItemsComponent}/:id`}
+          element={<TopicItemsModule />}
+        />
+        <Route
+          path={`${links.learnTopicComponent}/:id`}
+          element={<LearnModule />}
+        />
+        <Route path="*" element={<IndexModule />} />
       </Routes>
     </BrowserRouter>,
   );

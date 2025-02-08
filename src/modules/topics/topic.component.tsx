@@ -6,7 +6,7 @@ import { isNotLongClick, onLongClick } from "../../utils/behavior.utils";
 import TopicActionsDialogComponents from "./topic-actions-dialog.component";
 import FloatingDialogComponent from "../../components/floating-dialog/floating-dialog.component";
 import "./topic-component.css";
-
+import links from "../../links.d";
 interface Properties {
   topicData: ReactiveTopicData;
 }
@@ -29,7 +29,7 @@ export default function TopicElement({
   }, [setShowTopicActionsDialog]);
   const onMouseUpCallback = useCallback(() => {
     if (isNotLongClick(mouseButtonClicked)) {
-      navigate(`/topic/${topicData.id}`);
+      navigate(`${links.topicItemsComponent}/${topicData.id}`);
     }
   }, [navigate, topicData]);
 

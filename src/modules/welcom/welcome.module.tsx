@@ -3,13 +3,14 @@ import { useNavigate } from "react-router";
 import languageService from "../../services/language.service";
 import logo from "../../assets/logo.svg";
 import "./welcome-module.css";
+import links from "../../links.d";
 
 const lang = languageService.dictionary;
 const welcomeModuleLang = lang.title.module.welcome;
 
 export default function IndexModule(): ReactNode {
   const navigate = useNavigate();
-  const startBtn = useCallback(() => navigate("/topics"), []);
+  const startBtn = useCallback(() => navigate(links.topicsComponent), []);
 
   return (
     <div className="welcom-sceen">

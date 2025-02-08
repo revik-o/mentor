@@ -13,6 +13,7 @@ import LearnComponentAnswersStage from "./stage/answer.stage.component";
 import LearnComponentInputStage from "./stage/input-stage.component";
 import "./learn-module.css";
 
+import links from "../../links.d";
 function LearnComponent(): ReactNode {
   const topicId = useTopicId();
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function LearnComponent(): ReactNode {
     data: { learnData, learnStatus },
   } = useLearnModuleContext();
   const goBack = useCallback(
-    () => navigate(`/topic/${topicId}`),
+    () => navigate(`${links.topicItemsComponent}/${topicId}`),
     [navigate, topicId],
   );
 
