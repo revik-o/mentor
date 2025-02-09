@@ -1,3 +1,18 @@
-.topic-block>.topic-data>progress {
+.topic-block > .topic-data > progress {
     margin-right: 5px;
+}
+
+.topic-block {
+    background-color: black;
+    border-radius: 15px;
+    display: flex;
+}
+
+.topic-block > button {
+    width: 95%;
+}
+
+.topic-block > .topic-block-options {
+    cursor: pointer;
+    font-size: 39px;
 }

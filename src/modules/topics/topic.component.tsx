@@ -2,7 +2,6 @@ import { ReactNode, useCallback, useState } from "react";
 import { ReactiveTopicData } from "../../types.d";
 import { useTopicFullInfo } from "../../hooks/topic.module.hooks";
 import { useApplicationNavigator } from "../../hooks/general.hooks";
-import { isNotLongClick, onLongClick } from "../../utils/behavior.utils";
 import TopicActionsDialogComponents from "./topic-actions-dialog.component";
 import FloatingDialogComponent from "../../components/floating-dialog/floating-dialog.component";
 import links from "../../links.d";
@@ -11,8 +10,6 @@ import "./topic-component.css";
 interface Properties {
   topicData: ReactiveTopicData;
 }
-
-let mouseButtonClicked = Date.now();
 
 export default function TopicElement({
   topicData,
@@ -23,16 +20,14 @@ export default function TopicElement({
     () => setShowTopicActionsDialog(false),
     [setShowTopicActionsDialog],
   );
-
   const onMouseDownCallback = useCallback(() => {
-    mouseButtonClicked = Date.now();
-    onLongClick(mouseButtonClicked, () => setShowTopicActionsDialog(true));
+    setShowTopicActionsDialog(true);
   }, [setShowTopicActionsDialog]);
   const onMouseUpCallback = useCallback(() => {
-    if (isNotLongClick(mouseButtonClicked)) {
+    if (!showTopicActionsDialog) {
       navigate(`${links.topicItemsComponent}/${topicData.id}`);
     }
-  }, [navigate, topicData]);
+  }, [showTopicActionsDialog, navigate, topicData]);
 
   const {
     id,
@@ -42,23 +37,24 @@ export default function TopicElement({
 
   return (
     <>
-      <button
-        className="topic-block"
-        onMouseDown={onMouseDownCallback}
-        onMouseUp={onMouseUpCallback}
-      >
-        <div className="topic-title">{name}</div>
-        {isLoaded ? (
-          <div className="topic-data">
-            <progress max="100" value={percentage}>
-              {percentage}%
-            </progress>
-            <span>{percentage}%</span>
-          </div>
-        ) : (
-          <></>
-        )}
-      </button>
+      <div className="topic-block">
+        <button onMouseUp={onMouseUpCallback}>
+          <div className="topic-title">{name}</div>
+          {isLoaded ? (
+            <div className="topic-data">
+              <progress max="100" value={percentage}>
+                {percentage}%
+              </progress>
+              <span>{percentage}%</span>
+            </div>
+          ) : (
+            <></>
+          )}
+        </button>
+        <div className="topic-block-options" onClick={onMouseDownCallback}>
+          &#8942;
+        </div>
+      </div>
       <FloatingDialogComponent showDialog={showTopicActionsDialog}>
         <TopicActionsDialogComponents
           onClose={closeDialogCallback}
