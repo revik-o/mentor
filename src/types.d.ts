@@ -10,20 +10,7 @@ export namespace LearnStatus {
     oldStatus: LearnStatus,
     newStatus: LearnStatus,
   ): boolean {
-    switch (oldStatus) {
-      case LearnStatus.Learned:
-        return false;
-      case LearnStatus.Memorized:
-        return oldStatus !== newStatus && newStatus === LearnStatus.Learned;
-      case LearnStatus.InProgress:
-        return (
-          oldStatus !== newStatus &&
-          (newStatus === LearnStatus.Learned ||
-            newStatus === LearnStatus.Memorized)
-        );
-      default:
-        return oldStatus !== newStatus;
-    }
+    return newStatus > oldStatus;
   }
 
   export function compare(
@@ -41,6 +28,17 @@ export namespace LearnStatus {
         return LearnStatus.Memorized;
       default:
         return LearnStatus.Learned;
+    }
+  }
+
+  export function previousStatus(status: LearnStatus): LearnStatus {
+    switch (status) {
+      case LearnStatus.Learned:
+        return LearnStatus.Memorized;
+      case LearnStatus.Memorized:
+        return LearnStatus.InProgress;
+      default:
+        return status;
     }
   }
 }

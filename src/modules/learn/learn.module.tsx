@@ -37,10 +37,10 @@ function LearnComponent(): ReactNode {
         <div id="learn-item-block">
           <span>{learnData}</span>
         </div>
-        {!LearnStatus.statusIncreased(LearnStatus.Memorized, learnStatus) && (
+        {!LearnStatus.statusIncreased(LearnStatus.InProgress, learnStatus) && (
           <LearnComponentAnswersStage />
         )}
-        {LearnStatus.statusIncreased(LearnStatus.Memorized, learnStatus) && (
+        {LearnStatus.statusIncreased(LearnStatus.InProgress, learnStatus) && (
           <LearnComponentInputStage />
         )}
       </main>

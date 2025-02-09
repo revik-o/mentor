@@ -23,7 +23,7 @@ export default class QuizLocalService implements IQuizService {
   public constructor(
     private readonly _topicId: number,
     private readonly _appStorage: IStorage,
-  ) { }
+  ) {}
 
   private createAnswers(
     currentItem: TopicItemModel,
@@ -72,11 +72,16 @@ export default class QuizLocalService implements IQuizService {
       const currentItem = await this._appStorage
         .getTopicItemDao()
         .getItemById(this._currentQuestion.itemId);
-      const isCorrect = currentItem.meaningData.toLowerCase() === result.trim().toLowerCase();
+      const isCorrect =
+        currentItem.meaningData.toLowerCase() === result.trim().toLowerCase();
 
       if (isCorrect) {
         this._appStorage.getTopicItemDao().updateItem(currentItem.id, {
           learnStatus: LearnStatus.nextStatus(currentItem.learnStatus),
+        });
+      } else {
+        this._appStorage.getTopicItemDao().updateItem(currentItem.id, {
+          learnStatus: LearnStatus.previousStatus(currentItem.learnStatus),
         });
       }
 
@@ -98,7 +103,9 @@ export default class QuizLocalService implements IQuizService {
     const items = await this._appStorage
       .getTopicItemDao()
       .getAllItemsByTopicId(this._topicId, { sortBy: "learnStatus" });
-    const itemsQueue = [...items].splice(0, 5).filter((item) => item !== undefined);
+    const itemsQueue = [...items]
+      .splice(0, 5)
+      .filter((item) => item !== undefined);
 
     if (itemsQueue.length) {
       this._cachedQuestion = itemsQueue.map((item) =>
