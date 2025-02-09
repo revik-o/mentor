@@ -4,8 +4,8 @@ import {
   useQuizData,
 } from "../../hooks/learn.module.hooks";
 import { LearnModuleContextProvider } from "../../contexts/learn.module.context";
+import { useApplicationNavigator } from "../../hooks/general.hooks";
 import { useTopicId } from "../../hooks/topic.module.hooks";
-import { useNavigate } from "react-router";
 import { LearnStatus } from "../../types.d";
 import EntryModule from "../entry.module";
 import LoaderComponent from "../../components/loader/loader.component";
@@ -16,7 +16,7 @@ import "./learn-module.css";
 
 function LearnComponent(): ReactNode {
   const topicId = useTopicId();
-  const navigate = useNavigate();
+  const navigate = useApplicationNavigator();
   const {
     isLoaded,
     data: { learnData, learnStatus },

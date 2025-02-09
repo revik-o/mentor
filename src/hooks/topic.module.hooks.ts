@@ -17,6 +17,7 @@ import { useApplicationStorage } from "./general.hooks";
 import { UNDEFINED_REACTIVE_TOPIC } from "../constants.d";
 import { useParams } from "react-router";
 import IStorage from "../services/storage/storage.service.interface";
+import { AppNavigatorContext } from "../contexts/app.context";
 
 const MAX_CONTENT_SIZE = 25;
 
@@ -74,13 +75,14 @@ function prepareUpdateTopicFunction(
  */
 export function useTopicId(): number {
   const { id: topicId } = useParams();
+  const { topicId: topicIdFormAppContext } = useContext(AppNavigatorContext);
 
   return useMemo(() => {
     if (topicId) {
       return parseInt(topicId);
     }
 
-    return -1;
+    return topicIdFormAppContext;
   }, [topicId]);
 }
 

@@ -6,6 +6,7 @@ import TopicItemsModule from "./modules/topic-items/topic-items.module";
 import LearnModule from "./modules/learn/learn.module";
 import links from "./links.d";
 import "./index.css";
+import SinglePageApp from "./modules/single-page-app.module";
 
 const ANIMATION_DURATION = 500;
 
@@ -28,6 +29,7 @@ setTimeout(() => {
           path={`${links.learnTopicComponent}/:id`}
           element={<LearnModule />}
         />
+        <Route path={links.singlePageApp} element={<SinglePageApp />} />
         <Route path="*" element={<IndexModule />} />
       </Routes>
     </BrowserRouter>,

@@ -125,6 +125,7 @@ export function useTopicItems(
           }) as ReactiveTopicItemData,
       ),
     [
+      page,
       appStorage,
       cachedTopicItems,
       setHasNext,
@@ -146,7 +147,7 @@ export function useTopicItems(
         ]);
         setIsLoaded(true);
       });
-  }, [appStorage, setHasNext, setCachedTopicItems, setIsLoaded]);
+  }, [page, topicId, appStorage, setHasNext, setCachedTopicItems, setIsLoaded]);
 
   return {
     isLoaded,
@@ -169,5 +170,5 @@ export function useTopicItemFromModuleContext(
       (topic) => topic.id === topicItemId,
     );
     return result ?? UNDEFINED_REACTIVE_TOPIC_ITEM;
-  }, [topicContext]);
+  }, [topicItemId, topicContext]);
 }

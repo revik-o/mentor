@@ -47,6 +47,13 @@ export namespace LearnStatus {
 
 export type vocabulary = any;
 
+export type NavigatorCallback = (endpoint: string) => void;
+
+export type SinglePageApplicationContextType = {
+  navigator: NavigatorCallback | undefined;
+  topicId: number;
+};
+
 export type TopicModel = {
   id: number;
   name: string;
@@ -141,9 +148,7 @@ export type QuestionData = {
 };
 
 export type ReactiveQuestionData = {
-  checkQuestionCallback: (
-    answer: string,
-  ) => Promise<AnswerResult>;
+  checkQuestionCallback: (answer: string) => Promise<AnswerResult>;
   nextQuestionCallback: () => void;
 } & QuestionData;
 

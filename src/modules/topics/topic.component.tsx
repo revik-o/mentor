@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router";
 import { ReactNode, useCallback, useState } from "react";
 import { ReactiveTopicData } from "../../types.d";
 import { useTopicFullInfo } from "../../hooks/topic.module.hooks";
+import { useApplicationNavigator } from "../../hooks/general.hooks";
 import { isNotLongClick, onLongClick } from "../../utils/behavior.utils";
 import TopicActionsDialogComponents from "./topic-actions-dialog.component";
 import FloatingDialogComponent from "../../components/floating-dialog/floating-dialog.component";
@@ -17,7 +17,7 @@ let mouseButtonClicked = Date.now();
 export default function TopicElement({
   topicData,
 }: Readonly<Properties>): ReactNode {
-  const navigate = useNavigate();
+  const navigate = useApplicationNavigator();
   const [showTopicActionsDialog, setShowTopicActionsDialog] = useState(false);
   const closeDialogCallback = useCallback(
     () => setShowTopicActionsDialog(false),

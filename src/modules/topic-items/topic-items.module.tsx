@@ -4,8 +4,8 @@ import {
   useTopicItems,
 } from "../../hooks/topic-item.module.hooks";
 import { bindOnEndScroll } from "../../utils/bind.utils";
+import { useApplicationNavigator } from "../../hooks/general.hooks";
 import { TopicItemsModuleContextProvider } from "../../contexts/topic-item.module.context";
-import { useNavigate } from "react-router";
 import EntryModule from "../entry.module";
 import LoaderComponent from "../../components/loader/loader.component";
 import FloatingDialogComponent from "../../components/floating-dialog/floating-dialog.component";
@@ -41,7 +41,7 @@ function TopicItemsModuleContext({
 }
 
 function TopicItemsComponents(): ReactNode {
-  const navigate = useNavigate();
+  const navigate = useApplicationNavigator();
   const {
     isLoaded,
     data: { topicId, topicItems },
