@@ -1,4 +1,8 @@
 import { ReactNode } from "react";
+import languageService from "../../services/language.service";
+
+const lang = languageService.dictionary;
+const genericLang = lang.title.generic;
 
 interface Properties extends React.HTMLAttributes<HTMLDivElement> {
   onYes: () => void;
@@ -12,11 +16,11 @@ export default function ConfirmationComponent({
   return (
     <div className="confirmation-dialog">
       <header>
-        <h2>!!!TODO!!! Are you shure?</h2>
+        <h2>{genericLang.areYouShure}</h2>
       </header>
       <footer>
-        <button onClick={onYes}>!!!TODO!!! Yes</button>
-        <button onClick={onNo}>!!!TODO!!! No</button>
+        <button onClick={onYes}>{genericLang.yes}</button>
+        <button onClick={onNo}>{genericLang.no}</button>
       </footer>
     </div>
   );

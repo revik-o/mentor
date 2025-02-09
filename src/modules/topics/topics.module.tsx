@@ -11,6 +11,10 @@ import LoaderComponent from "../../components/loader/loader.component";
 import TopicElement from "./topic.component";
 import EntryModule from "../entry.module";
 import "./topics-module.css";
+import languageService from "../../services/language.service";
+
+const lang = languageService.dictionary;
+const topicsModuleLang = lang.title.module.topics;
 
 interface TopicPageContextProperties {
   children: ReactNode;
@@ -72,7 +76,7 @@ function TopicsComponents(): ReactNode {
           id="topics-module-upload-vocabulary"
           onClick={uploadVocabularyCallback}
         >
-          !!!TODO!!! Upload Vocabulary
+          {topicsModuleLang.buttons.uploadVocabulary}
         </button>
         <div id="topic-list">
           {topics.map((topic) => (

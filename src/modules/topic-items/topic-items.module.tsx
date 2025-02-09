@@ -13,6 +13,10 @@ import CreateTopicItemDialogComponent from "./create-topic-item-dialog.component
 import TopicItemElement from "./topic-item.component";
 import links from "../../links.d";
 import "./topic-items-module.css";
+import languageService from "../../services/language.service";
+
+const lang = languageService.dictionary;
+const topicItemsModuleLang = lang.title.module.topicItems;
 
 interface TopicItemsModuleContextProperties {
   children: ReactNode;
@@ -79,7 +83,7 @@ function TopicItemsComponents(): ReactNode {
         </button>
         {topicItems.length >= 3 && (
           <button id="start-learn-topic-button" onClick={startLearnCallback}>
-            !!!TODO!!! Start learn
+            {topicItemsModuleLang.startLearnButton}
           </button>
         )}
         <div id="topic-item-list">

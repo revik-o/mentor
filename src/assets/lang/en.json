@@ -1,21 +1,66 @@
 {
-    "error": {},
-    "title": {
-        "generic": {
-            "ok": "Ok",
-            "cancel": "Cancel"
+  "error": {},
+  "title": {
+    "generic": {
+      "check": "Check",
+      "next": "Next",
+      "yes": "Yes",
+      "no": "No",
+      "ok": "Ok",
+      "cancel": "Cancel",
+      "areYouShure": "Are you shure?"
+    },
+    "module": {
+      "welcome": {
+        "mainTitle": "Learn whatever you want...",
+        "startButton": "START"
+      },
+      "topics": {
+        "buttons": {
+          "uploadVocabulary": "Upload Vocabulary"
         },
-        "module": {
-            "welcome": {
-                "mainTitle": "Learn whatever you want...",
-                "startButton": "START"
-            },
-            "topics": {
-                "crateTopicDialog": {
-                    "header": "Add new topic",
-                    "inputPlaceholder": "Topic name..."
-                }
+        "crateTopicDialog": {
+          "header": "Add new topic",
+          "inputPlaceholder": "Topic name..."
+        },
+        "actions": {
+          "header": "Topic actions title",
+          "main": {
+            "header": "Topic actions title",
+            "buttons": {
+              "update": "Update topic name",
+              "delete": "Delete topic",
+              "exportData": "Export data from topic"
             }
+          },
+          "update": {
+            "header": "Update Topic",
+            "button": "Update"
+          }
         }
+      },
+      "topicItems": {
+        "actions": {
+          "header": "Topic item actions title",
+          "buttons": {
+            "delete": "Delete",
+            "update": "Update"
+          }
+        },
+        "crateTopicItemDialog": {
+          "header": "New Topic Item",
+          "inputPlaceholderLearn": "What you want learn",
+          "inputPlaceholderMeaning": "Meaning for learn section"
+        },
+        "startLearnButton": "Start learn"
+      },
+      "learn": {
+        "stage": {
+          "input": {
+            "inputPlaceholder": "Answer..."
+          }
+        }
+      }
     }
+  }
 }

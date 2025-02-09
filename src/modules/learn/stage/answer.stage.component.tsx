@@ -2,6 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import { useLearnModuleContext } from "../../../hooks/learn.module.hooks";
 import { ReactiveAnswerButton } from "../../../types.d";
 import AnswerButtonComponent from "../answer-button.component";
+import languageService from "../../../services/language.service";
+
+const lang = languageService.dictionary;
+const genericLang = lang.title.generic;
 
 function updateAnswerState(
   arrayPtr: ReactiveAnswerButton[],
@@ -69,7 +73,13 @@ export default function LearnComponentAnswersStage() {
           }) as ReactiveAnswerButton,
       ),
     );
-  }, [answers, setIsCorrectAnswer, setShowNextButton, setReactiveAnswers]);
+  }, [
+    answers,
+    setIsCorrectAnswer,
+    setShowNextButton,
+    setReactiveAnswers,
+    checkQuestionCallback,
+  ]);
 
   return answers.length > 1 ? (
     <>
@@ -93,7 +103,9 @@ export default function LearnComponentAnswersStage() {
           </>
         ))}
         {showNextButton && (
-          <button onClick={nextQuestionButtonCallback}>!!!TODO!!! Next</button>
+          <button onClick={nextQuestionButtonCallback}>
+            {genericLang.next}
+          </button>
         )}
       </div>
     </>

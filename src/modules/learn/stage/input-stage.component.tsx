@@ -1,5 +1,10 @@
 import { ChangeEvent, ReactNode, useCallback, useState } from "react";
 import { useLearnModuleContext } from "../../../hooks/learn.module.hooks";
+import languageService from "../../../services/language.service";
+
+const lang = languageService.dictionary;
+const genericLang = lang.title.generic;
+const inputStageLang = lang.title.module.learn.stage.input;
 
 export default function LearnComponentInputStage(): ReactNode {
   const [correctAnswer, setCorrectAnswer] = useState("");
@@ -32,7 +37,7 @@ export default function LearnComponentInputStage(): ReactNode {
       <span>
         {isCorrectAnswer !== undefined ? (
           <>
-            {isCorrectAnswer ? "✔" : "x"} {correctAnswer}
+            {isCorrectAnswer ? "✔" : "X"} {correctAnswer}
             <br />
           </>
         ) : (
@@ -40,7 +45,7 @@ export default function LearnComponentInputStage(): ReactNode {
         )}
       </span>
       <input
-        placeholder={"!!!TODO!!! Answer..."}
+        placeholder={inputStageLang.inputPlaceholder}
         value={inputValue}
         onChange={inputOnChange}
       />
@@ -49,7 +54,7 @@ export default function LearnComponentInputStage(): ReactNode {
         onClick={isCorrectAnswer !== undefined ? nextQuestion : checkAnswer}
         disabled={inputValue === ""}
       >
-        !!!TODO!!! {isCorrectAnswer !== undefined ? "Next" : "Check"}
+        {isCorrectAnswer !== undefined ? genericLang.next : genericLang.check}
       </button>
     </div>
   );

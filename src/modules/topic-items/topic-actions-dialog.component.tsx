@@ -2,9 +2,11 @@ import { ReactNode, useCallback, useMemo, useState } from "react";
 import { useTopicItemFromModuleContext } from "../../hooks/topic-item.module.hooks";
 import ConfirmationComponent from "../../components/confirmation/confirmation.component";
 import languageService from "../../services/language.service";
+import { UNDEFINED_FUNCTION } from "../../constants.d";
 
 const lang = languageService.dictionary;
 const genericLang = lang.title.generic;
+const topicItemActionsLang = lang.title.module.topicItems.actions;
 
 enum DialogActivity {
   TopicItemActionsDialog,
@@ -60,10 +62,16 @@ function TopicItemActionsMenu({
   return (
     <div className="topic-item-actions">
       <header>
-        <h2>!!!TODO!!! Topic item actions title</h2>
+        <h2>{topicItemActionsLang.header}</h2>
       </header>
       <footer>
-        <button onClick={onClickDelete}>!!!TODO!!! Delete topic</button>
+        <button onClick={onClickDelete}>
+          {topicItemActionsLang.buttons.delete}
+        </button>
+        <br />
+        <button onClick={UNDEFINED_FUNCTION}>
+          {topicItemActionsLang.buttons.update}
+        </button>
         <br />
         {onClose && (
           <button className="cancel-btn" onClick={closeDialogCallback}>

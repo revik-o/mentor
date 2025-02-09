@@ -5,6 +5,8 @@ import { validateInput } from "../../utils/validation.utils";
 
 const lang = languageService.dictionary;
 const genericLang = lang.title.generic;
+const crateTopicItemDialogLang =
+  lang.title.module.topicItems.crateTopicItemDialog;
 
 interface Properties {
   onClose?: () => void;
@@ -53,18 +55,18 @@ export default function CreateTopicItemDialogComponent({
   return (
     <div className="create-new-topic-item">
       <header>
-        <h2>!!!TODO!!! New Topic Item</h2>
+        <h2>{crateTopicItemDialogLang.header}</h2>
       </header>
       <section key="new-topic-item-info">
         <input
           type="text"
-          placeholder={"!!!TODO!!! What you want learn"}
+          placeholder={crateTopicItemDialogLang.inputPlaceholderLearn}
           value={newTopicItemLearn}
           onChange={newTopicItemLearnOnChangeCallback}
         />
         <input
           type="text"
-          placeholder={"!!!TODO!!! Meaning for learn section"}
+          placeholder={crateTopicItemDialogLang.inputPlaceholderMeaning}
           value={newTopicItemMeaning}
           onChange={newTopicItemMeaningOnChangeCallback}
         />

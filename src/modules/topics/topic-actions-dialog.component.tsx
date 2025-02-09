@@ -6,6 +6,7 @@ import "./topic-actions-dialog-component.css";
 
 const lang = languageService.dictionary;
 const genericLang = lang.title.generic;
+const topicActionsDialogLang = lang.title.module.topics.actions;
 
 enum DialogActivity {
   TopicActionsDialog,
@@ -50,14 +51,16 @@ function UpdateTopicNameDialog({
   return (
     <div>
       <header>
-        <h2>!!!TODO!!! Update Topic</h2>
+        <h2>{topicActionsDialogLang.update.header}</h2>
       </header>
       <section>
         <input value={newName} onChange={onInputUpdate} />
       </section>
       <footer>
-        <button onClick={onUpdate}>!!!TODO!!! Update</button>
-        <button onClick={onCancel}>!!!TODO!!! Cancel</button>
+        <button onClick={onUpdate}>
+          {topicActionsDialogLang.update.button}
+        </button>
+        <button onClick={onCancel}>{genericLang.cancel}</button>
       </footer>
     </div>
   );
@@ -108,15 +111,19 @@ function TopicActionsMenu({
   return (
     <div className="topic-actions">
       <header>
-        <h2>!!!TODO!!! Topic actions title</h2>
+        <h2>{topicActionsDialogLang.main.header}</h2>
       </header>
       <footer>
-        <button onClick={onClickUpdate}>!!!TODO!!! Update topic name</button>
+        <button onClick={onClickUpdate}>
+          {topicActionsDialogLang.main.buttons.update}
+        </button>
         <br />
-        <button onClick={onClickDelete}>!!!TODO!!! Delete topic</button>
+        <button onClick={onClickDelete}>
+          {topicActionsDialogLang.main.buttons.delete}
+        </button>
         <br />
         <button onClick={onClickExportData}>
-          !!!TODO!!! Export data from topic
+          {topicActionsDialogLang.main.buttons.exportData}
         </button>
         <br />
         {onClose && (
