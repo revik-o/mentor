@@ -2,16 +2,16 @@ import { ReactNode, useCallback } from "react";
 import {
   useLearnModuleContext,
   useQuizData,
-} from "../../hooks/learn.module.hooks";
-import { LearnModuleContextProvider } from "../../contexts/learn.module.context";
-import { useApplicationNavigator } from "../../hooks/general.hooks";
-import { useTopicId } from "../../hooks/topic.module.hooks";
-import { LearnStatus } from "../../types.d";
-import EntryModule from "../entry.module";
-import LoaderComponent from "../../components/loader/loader.component";
+} from "../../../hooks/learn.module.hooks";
+import { LearnModuleContextProvider } from "../../../contexts/learn.module.context";
+import { useApplicationNavigator } from "../../../hooks/general.hooks";
+import { useTopicId } from "../../../hooks/topic.module.hooks";
+import { LearnStatus } from "../../../types.d";
+import EntryModule from "../../entry.module";
+import LoaderComponent from "../../../components/loader/loader.component";
 import LearnComponentAnswersStage from "./stage/answer.stage.component";
 import LearnComponentInputStage from "./stage/input-stage.component";
-import links from "../../links.d";
+import links from "../../../links.d";
 import "./learn-module.css";
 
 function LearnComponent(): ReactNode {

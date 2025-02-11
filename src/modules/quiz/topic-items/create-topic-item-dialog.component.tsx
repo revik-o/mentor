@@ -1,7 +1,7 @@
 import { ChangeEvent, ReactNode, useCallback, useState } from "react";
-import { useTopicItemModuleContext } from "../../hooks/topic-item.module.hooks";
-import languageService from "../../services/language.service";
-import { validateInput } from "../../utils/validation.utils";
+import { useTopicItemModuleContext } from "../../../hooks/topic-item.module.hooks";
+import languageService from "../../../services/language.service";
+import { validateInput } from "../../../utils/validation.utils";
 
 const lang = languageService.dictionary;
 const genericLang = lang.title.generic;

@@ -1,9 +1,9 @@
 import { ReactNode, useCallback, useState } from "react";
 import { AppNavigatorContextProvider } from "../contexts/app.context";
+import TopicItemsModule from "./quiz/topic-items/topic-items.module";
+import LearnModule from "./quiz/learn/learn.module";
 import IndexModule from "./welcom/welcome.module";
 import TopicsModule from "./topics/topics.module";
-import TopicItemsModule from "./topic-items/topic-items.module";
-import LearnModule from "./learn/learn.module";
 import links from "../links.d";
 
 interface IProperties {

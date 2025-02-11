@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { useLearnModuleContext } from "../../../hooks/learn.module.hooks";
-import { ReactiveAnswerButton } from "../../../types.d";
+import { useLearnModuleContext } from "../../../../hooks/learn.module.hooks";
+import { ReactiveAnswerButton } from "../../../../types.d";
 import AnswerButtonComponent from "../answer-button.component";
-import languageService from "../../../services/language.service";
+import languageService from "../../../../services/language.service";
 
 const lang = languageService.dictionary;
 const genericLang = lang.title.generic;

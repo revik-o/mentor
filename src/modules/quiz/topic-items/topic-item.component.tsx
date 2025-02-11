@@ -1,10 +1,10 @@
 import { ReactNode, useCallback, useState } from "react";
-import { ReactiveTopicItemData } from "../../types";
-import FloatingDialogComponent from "../../components/floating-dialog/floating-dialog.component";
+import { ReactiveQuizItemData } from "../../../types";
+import FloatingDialogComponent from "../../../components/floating-dialog/floating-dialog.component";
 import TopicItemActionsDialogComponents from "./topic-actions-dialog.component";
 
 interface Properties {
-  topicItemData: ReactiveTopicItemData;
+  topicItemData: ReactiveQuizItemData;
 }
 
 export default function TopicItemElement({

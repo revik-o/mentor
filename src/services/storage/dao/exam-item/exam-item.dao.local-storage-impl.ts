@@ -1,38 +1,38 @@
 import {
-  LearnStatus,
-  NewTopicItemArgs,
-  Page,
   StorageRequestOptions,
-  TopicItemModel,
-  TopicItemUpdateArgs,
+  ExamItemModel,
+  Page,
+  NewExamItemArgs,
+  ExamItemUpdateArgs,
+  LearnStatus,
 } from "../../../../types.d";
-import ITopicItemDao from "./topic-item.dao.interface";
+import IExamItemDao from "./exam-item.dao.interface";
 
-export default class TopicItemDaoLocalStorageImpl implements ITopicItemDao {
-  private readonly _tableName = "topic_item_table";
+export default class ExamItemLocalStorageDao implements IExamItemDao {
+  private readonly _tableName = "exam_item_table";
 
-  private getTableData(): TopicItemModel[] {
+  private getTableData(): ExamItemModel[] {
     const strTableData = localStorage.getItem(this._tableName);
 
     if (strTableData) {
-      return JSON.parse(strTableData) as TopicItemModel[];
+      return JSON.parse(strTableData) as ExamItemModel[];
     }
 
-    const emptyResult: TopicItemModel[] = [];
+    const emptyResult: ExamItemModel[] = [];
     localStorage.setItem(this._tableName, JSON.stringify(emptyResult));
     return emptyResult;
   }
 
   private updateItemFields(
-    itemPtr: TopicItemModel,
-    argsPtr: TopicItemUpdateArgs,
+    itemPtr: ExamItemModel,
+    argsPtr: ExamItemUpdateArgs,
   ) {
-    if (argsPtr.learnData) {
-      itemPtr.learnData = argsPtr.learnData;
-    }
-    if (argsPtr.meaningData) {
-      itemPtr.meaningData = argsPtr.meaningData;
-    }
+    // if (argsPtr.learnData) {
+    //   itemPtr.learnData = argsPtr.learnData;
+    // }
+    // if (argsPtr.meaningData) {
+    //   itemPtr.meaningData = argsPtr.meaningData;
+    // }
     if (argsPtr.learnStatus) {
       itemPtr.learnStatus = argsPtr.learnStatus;
     }
@@ -54,6 +54,18 @@ export default class TopicItemDaoLocalStorageImpl implements ITopicItemDao {
     throw new Error("Index is out of bounds");
   }
 
+  public async deleteItemsByTopicId(topicId: number) {
+    if (topicId >= 0) {
+      const tableData = this.getTableData();
+      localStorage.setItem(
+        this._tableName,
+        JSON.stringify(tableData.filter((item) => item.topicId != topicId)),
+      );
+      return;
+    }
+    throw new Error("Index is out of bounds");
+  }
+
   public async countAllItemsByTopicId(topicId: number): Promise<number> {
     return (await this.getAllItemsByTopicId(topicId)).length;
   }
@@ -61,9 +73,11 @@ export default class TopicItemDaoLocalStorageImpl implements ITopicItemDao {
   public async getAllItemsByTopicId(
     topicId: number,
     options?: StorageRequestOptions,
-  ): Promise<TopicItemModel[]> {
+  ): Promise<ExamItemModel[]> {
     if (topicId >= 0) {
-      let result = this.getTableData().filter((item) => item.topicId === topicId);
+      let result = this.getTableData().filter(
+        (item) => item.topicId === topicId,
+      );
 
       if (options?.sortBy) {
         if (options?.sortBy === "learnStatus") {
@@ -85,12 +99,12 @@ export default class TopicItemDaoLocalStorageImpl implements ITopicItemDao {
     topicId: number,
     page: number,
     maxSize: number,
-  ): Promise<Page<TopicItemModel>> {
+  ): Promise<Page<ExamItemModel>> {
     if (page > 0 && maxSize > 0) {
-      const result: TopicItemModel[] = [];
+      const result: ExamItemModel[] = [];
       const validPageValue = page - 1;
       const availableLastIndex = maxSize * validPageValue + maxSize;
-      const tableData = (await this.getAllItemsByTopicId(topicId));
+      const tableData = await this.getAllItemsByTopicId(topicId);
 
       for (
         let index = maxSize * validPageValue;
@@ -110,7 +124,7 @@ export default class TopicItemDaoLocalStorageImpl implements ITopicItemDao {
     throw new Error("Unexpected arguments");
   }
 
-  public async getItemById(id: number): Promise<TopicItemModel> {
+  public async getItemById(id: number): Promise<ExamItemModel> {
     if (id >= 0) {
       const tableData = this.getTableData();
       const result = tableData.find((item) => item.id === id);
@@ -125,16 +139,16 @@ export default class TopicItemDaoLocalStorageImpl implements ITopicItemDao {
     throw new Error("Unexpected arguments");
   }
 
-  public async createNewItem(args: NewTopicItemArgs): Promise<TopicItemModel> {
+  public async createNewItem(args: NewExamItemArgs): Promise<ExamItemModel> {
     const topicId = args.topicId;
-    const learnData = args.learnData;
-    const meaningData = args.meaningData;
+    const question = args.question;
+    const answers = args.answers;
     const tableData = this.getTableData();
-    const newItem: TopicItemModel = {
+    const newItem: ExamItemModel = {
       id: tableData.length === 0 ? 0 : tableData[0].id + 1,
       topicId,
-      learnData,
-      meaningData,
+      question,
+      answers,
       learnStatus: LearnStatus.UnTouched,
     };
     localStorage.setItem(
@@ -147,8 +161,8 @@ export default class TopicItemDaoLocalStorageImpl implements ITopicItemDao {
 
   public async updateItem(
     id: number,
-    args: TopicItemUpdateArgs,
-  ): Promise<TopicItemModel> {
+    args: ExamItemUpdateArgs,
+  ): Promise<ExamItemModel> {
     const tableData = this.getTableData();
 
     if (id >= 0) {

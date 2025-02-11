@@ -101,7 +101,7 @@ export function useTopics(page: number): AsyncData<ReactiveTopicsChunkData> {
 
       appStorage
         .getTopicDao()
-        .createNewTopic(topicName.trim())
+        .createNewQuizTopic(topicName.trim())
         .then((topic) => {
           setCachedTopics((cachedTopics) => [topic, ...cachedTopics]);
           setIsLoaded(true);
@@ -157,7 +157,7 @@ export function useTopicFullInfo(
 
   useEffect(() => {
     appStorage
-      .getTopicItemDao()
+      .getQuizItemDao()
       .getAllItemsByTopicId(topic.id)
       .then((items) => {
         if (items.length > 0) {

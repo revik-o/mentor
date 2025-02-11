@@ -2,18 +2,18 @@ import { ReactNode, useCallback, useEffect, useState } from "react";
 import {
   useTopicItemModuleContext,
   useTopicItems,
-} from "../../hooks/topic-item.module.hooks";
-import { bindOnEndScroll } from "../../utils/bind.utils";
-import { useApplicationNavigator } from "../../hooks/general.hooks";
-import { TopicItemsModuleContextProvider } from "../../contexts/topic-item.module.context";
-import EntryModule from "../entry.module";
-import LoaderComponent from "../../components/loader/loader.component";
-import FloatingDialogComponent from "../../components/floating-dialog/floating-dialog.component";
+} from "../../../hooks/topic-item.module.hooks";
+import { bindOnEndScroll } from "../../../utils/bind.utils";
+import { useApplicationNavigator } from "../../../hooks/general.hooks";
+import { TopicItemsModuleContextProvider } from "../../../contexts/topic-item.module.context";
+import EntryModule from "../../entry.module";
+import LoaderComponent from "../../../components/loader/loader.component";
+import FloatingDialogComponent from "../../../components/floating-dialog/floating-dialog.component";
 import CreateTopicItemDialogComponent from "./create-topic-item-dialog.component";
 import TopicItemElement from "./topic-item.component";
-import links from "../../links.d";
+import languageService from "../../../services/language.service";
+import links from "../../../links.d";
 import "./topic-items-module.css";
-import languageService from "../../services/language.service";
 
 const lang = languageService.dictionary;
 const topicItemsModuleLang = lang.title.module.topicItems;

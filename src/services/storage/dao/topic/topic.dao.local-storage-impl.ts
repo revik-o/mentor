@@ -1,8 +1,26 @@
-import { Page, TopicModel, TopicUpdateArgs } from "../../../../types.d";
+import {
+  Page,
+  TopicModel,
+  TopicType,
+  TopicUpdateArgs,
+} from "../../../../types.d";
+import IStorage from "../../storage.service.interface";
+import ExamItemLocalStorageDao from "../exam-item/exam-item.dao.local-storage-impl";
+import QuizItemDaoLocalStorageImpl from "../quiz-item/quiz-item.dao.local-storage-impl";
 import ITopicDao from "./topic.dao.interface";
 
 export default class TopicDaoLocalStorageImpl implements ITopicDao {
   private readonly _tableName = "topic_table";
+
+  public constructor(private readonly _storage: IStorage) {}
+
+  private getQuizItemDao(): QuizItemDaoLocalStorageImpl {
+    return this._storage.getQuizItemDao() as unknown as QuizItemDaoLocalStorageImpl;
+  }
+
+  private getExamItemDao(): ExamItemLocalStorageDao {
+    return this._storage.getExamItemDao() as unknown as ExamItemLocalStorageDao;
+  }
 
   private getTableData(): TopicModel[] {
     const strTableData = localStorage.getItem(this._tableName);
@@ -16,13 +34,45 @@ export default class TopicDaoLocalStorageImpl implements ITopicDao {
     return emptyResult;
   }
 
+  private async createNewTopic(
+    name: string,
+    type: TopicType,
+  ): Promise<TopicModel> {
+    if (name) {
+      const tableData = this.getTableData();
+      const newTopic: TopicModel = {
+        id: tableData.length === 0 ? 0 : tableData[0].id + 1,
+        type,
+        name,
+      };
+      localStorage.setItem(
+        this._tableName,
+        JSON.stringify([newTopic, ...tableData]),
+      );
+
+      return newTopic;
+    }
+
+    throw new Error("Unexpected arguments");
+  }
+
   public async deleteTopic(id: number): Promise<void> {
     const tableData = this.getTableData();
 
     if (id >= 0) {
+      const topic = await this.getTopic(id);
+
+      if (topic.type === TopicType.Quiz) {
+        await this.getQuizItemDao().deleteItemsByTopicId(topic.id);
+      } else {
+        await this.getExamItemDao().deleteItemsByTopicId(topic.id);
+      }
+
       localStorage.setItem(
         this._tableName,
-        JSON.stringify(tableData.filter((topic) => topic.id != id)),
+        JSON.stringify(
+          tableData.filter((topicElement) => topicElement.id != topic.id),
+        ),
       );
     } else {
       throw new Error("Index is out of bounds");
@@ -69,22 +119,12 @@ export default class TopicDaoLocalStorageImpl implements ITopicDao {
     throw new Error("Unexpected arguments");
   }
 
-  public async createNewTopic(name: string): Promise<TopicModel> {
-    if (name) {
-      const tableData = this.getTableData();
-      const newTopic: TopicModel = {
-        id: tableData.length === 0 ? 0 : tableData[0].id + 1,
-        name,
-      };
-      localStorage.setItem(
-        this._tableName,
-        JSON.stringify([newTopic, ...tableData]),
-      );
+  public async createNewQuizTopic(name: string): Promise<TopicModel> {
+    return await this.createNewTopic(name, TopicType.Quiz);
+  }
 
-      return newTopic;
-    }
-
-    throw new Error("Unexpected arguments");
+  public async createNewExamTopic(name: string): Promise<TopicModel> {
+    return await this.createNewTopic(name, TopicType.Exam);
   }
 
   public async updateTopic(

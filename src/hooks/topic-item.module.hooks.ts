@@ -1,11 +1,11 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import {
   AsyncData,
-  NewTopicItemArgs,
-  ReactiveTopicItemData,
-  ReactiveTopicItemsChunkData,
-  TopicItemModel,
-  TopicItemUpdateArgs,
+  NewQuizItemArgs,
+  ReactiveQuizItemData,
+  ReactiveQuizItemsChunkData,
+  QuizItemModel,
+  QuizItemUpdateArgs,
   UpdateStateFunc,
 } from "../types.d";
 import { useApplicationStorage } from "./general.hooks";
@@ -19,8 +19,8 @@ import IStorage from "../services/storage/storage.service.interface";
 
 const MAX_CONTENT_SIZE = 30;
 
-function updateTopicItemsSiquence(topicItem: TopicItemModel) {
-  return (topicItems: TopicItemModel[]) =>
+function updateTopicItemsSiquence(topicItem: QuizItemModel) {
+  return (topicItems: QuizItemModel[]) =>
     topicItems.map((entity) =>
       entity.id === topicItem.id ? { ...topicItem } : entity,
     );
@@ -28,20 +28,20 @@ function updateTopicItemsSiquence(topicItem: TopicItemModel) {
 
 function prepareRemoveTopicItemFunction(
   page: number,
-  topicItem: TopicItemModel,
+  topicItem: QuizItemModel,
   appStorage: IStorage,
   setHasNext: UpdateStateFunc<boolean>,
   setIsLoaded: UpdateStateFunc<boolean>,
-  setTopicItems: UpdateStateFunc<TopicItemModel[]>,
+  setTopicItems: UpdateStateFunc<QuizItemModel[]>,
 ) {
   return () => {
     setIsLoaded(false);
     appStorage
-      .getTopicItemDao()
+      .getQuizItemDao()
       .deleteItem(topicItem.id)
       .then(() =>
         appStorage
-          .getTopicItemDao()
+          .getQuizItemDao()
           .getItemsByTopicId(topicItem.topicId, 1, MAX_CONTENT_SIZE * page)
           .then(({ data, totalPages }) => {
             setTopicItems(data);
@@ -53,16 +53,16 @@ function prepareRemoveTopicItemFunction(
 }
 
 function prepareUpdateTopicFunction(
-  topicItem: TopicItemModel,
+  topicItem: QuizItemModel,
   appStorage: IStorage,
   setIsLoaded: UpdateStateFunc<boolean>,
-  setTopicItems: UpdateStateFunc<TopicItemModel[]>,
+  setTopicItems: UpdateStateFunc<QuizItemModel[]>,
 ) {
-  return (args: TopicItemUpdateArgs) => {
+  return (args: QuizItemUpdateArgs) => {
     setIsLoaded(false);
 
     appStorage
-      .getTopicItemDao()
+      .getQuizItemDao()
       .updateItem(topicItem.id, args)
       .then((topicItem) => {
         setTopicItems(updateTopicItemsSiquence(topicItem));
@@ -77,20 +77,18 @@ export function useTopicItemModuleContext(): TopicItemModuleContextType {
 
 export function useTopicItems(
   page: number,
-): AsyncData<ReactiveTopicItemsChunkData> {
+): AsyncData<ReactiveQuizItemsChunkData> {
   const topicId = useTopicId();
   const appStorage = useApplicationStorage();
   const [hasNext, setHasNext] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [cachedTopicItems, setCachedTopicItems] = useState<TopicItemModel[]>(
-    [],
-  );
+  const [cachedTopicItems, setCachedTopicItems] = useState<QuizItemModel[]>([]);
   const addNewTopicItem = useCallback(
-    (newItem: NewTopicItemArgs) => {
+    (newItem: NewQuizItemArgs) => {
       setIsLoaded(false);
 
       appStorage
-        .getTopicItemDao()
+        .getQuizItemDao()
         .createNewItem(newItem)
         .then((topicItem) => {
           setCachedTopicItems((cachedTopicItems) => [
@@ -102,7 +100,7 @@ export function useTopicItems(
     },
     [setIsLoaded, appStorage, setCachedTopicItems],
   );
-  const topicItems: ReactiveTopicItemData[] = useMemo(
+  const topicItems: ReactiveQuizItemData[] = useMemo(
     () =>
       cachedTopicItems.map(
         (topicItem) =>
@@ -122,7 +120,7 @@ export function useTopicItems(
               setIsLoaded,
               setCachedTopicItems,
             ),
-          }) as ReactiveTopicItemData,
+          }) as ReactiveQuizItemData,
       ),
     [
       page,
@@ -137,7 +135,7 @@ export function useTopicItems(
   useEffect(() => {
     appStorage.getTopicDao().getTopic(topicId);
     appStorage
-      .getTopicItemDao()
+      .getQuizItemDao()
       .getItemsByTopicId(topicId, page, MAX_CONTENT_SIZE)
       .then((topicItems) => {
         setHasNext(page < topicItems.totalPages);
@@ -162,7 +160,7 @@ export function useTopicItems(
 
 export function useTopicItemFromModuleContext(
   topicItemId: number,
-): ReactiveTopicItemData {
+): ReactiveQuizItemData {
   const topicContext = useTopicItemModuleContext();
 
   return useMemo(() => {

@@ -1,6 +1,6 @@
 import { ChangeEvent, ReactNode, useCallback, useState } from "react";
-import { useLearnModuleContext } from "../../../hooks/learn.module.hooks";
-import languageService from "../../../services/language.service";
+import { useLearnModuleContext } from "../../../../hooks/learn.module.hooks";
+import languageService from "../../../../services/language.service";
 
 const lang = languageService.dictionary;
 const genericLang = lang.title.generic;

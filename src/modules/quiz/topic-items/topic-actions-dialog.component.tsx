@@ -1,8 +1,8 @@
 import { ReactNode, useCallback, useMemo, useState } from "react";
-import { useTopicItemFromModuleContext } from "../../hooks/topic-item.module.hooks";
-import ConfirmationComponent from "../../components/confirmation/confirmation.component";
-import languageService from "../../services/language.service";
-import { UNDEFINED_FUNCTION } from "../../constants.d";
+import { useTopicItemFromModuleContext } from "../../../hooks/topic-item.module.hooks";
+import ConfirmationComponent from "../../../components/confirmation/confirmation.component";
+import languageService from "../../../services/language.service";
+import { UNDEFINED_FUNCTION } from "../../../constants.d";
 
 const lang = languageService.dictionary;
 const genericLang = lang.title.generic;

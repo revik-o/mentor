@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import {
   AsyncData,
-  ReactiveTopicItemsChunkData,
+  ReactiveQuizItemsChunkData,
   UpdateStateFunc,
 } from "../types";
 import { UNDEFINED_FUNCTION } from "../constants.d";
@@ -11,7 +11,7 @@ export type TopicItemModuleContextType = {
     value: number;
     changePage: UpdateStateFunc<number>;
   };
-} & AsyncData<ReactiveTopicItemsChunkData>;
+} & AsyncData<ReactiveQuizItemsChunkData>;
 
 export const TopicItemsModuleContext =
   createContext<TopicItemModuleContextType>({

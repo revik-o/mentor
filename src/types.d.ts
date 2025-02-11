@@ -43,6 +43,11 @@ export namespace LearnStatus {
   }
 }
 
+export enum TopicType {
+  Quiz = 0,
+  Exam = 1,
+}
+
 export type vocabulary = any;
 
 export type NavigatorCallback = (endpoint: string) => void;
@@ -55,9 +60,10 @@ export type SinglePageApplicationContextType = {
 export type TopicModel = {
   id: number;
   name: string;
+  type: TopicType;
 };
 
-export type TopicItemModel = {
+export type QuizItemModel = {
   id: number;
   topicId: number;
   learnData: string;
@@ -65,20 +71,41 @@ export type TopicItemModel = {
   learnStatus: LearnStatus;
 };
 
+export type ExamItemModel = {
+  id: number;
+  topicId: number;
+  question: string;
+  answers: string[];
+  learnStatus: LearnStatus;
+};
+
 export type TopicUpdateArgs = {
   name?: string;
 };
 
-export type NewTopicItemArgs = {
+export type NewQuizItemArgs = {
   topicId: number;
   learnData: string;
   meaningData: string;
 };
 
-export type TopicItemUpdateArgs = {
+export type NewExamItemArgs = {
+  topicId: number;
+  question: string;
+  answers: string[];
+};
+
+export type QuizItemUpdateArgs = {
   topicId?: number;
   learnData?: string;
   meaningData?: string;
+  learnStatus?: LearnStatus;
+};
+
+export type ExamItemUpdateArgs = {
+  topicId?: number;
+  question?: string;
+  answers: string[];
   learnStatus?: LearnStatus;
 };
 
@@ -113,16 +140,16 @@ export type ReactiveTopicsChunkData = {
   addNewTopic: (topicName: string) => void;
 };
 
-export type ReactiveTopicItemData = {
+export type ReactiveQuizItemData = {
   removeItem: () => void;
   updateItem: (args: TopicUpdateArgs) => void;
-} & TopicItemModel;
+} & QuizItemModel;
 
-export type ReactiveTopicItemsChunkData = {
+export type ReactiveQuizItemsChunkData = {
   topicId: number;
   hasNext: boolean;
-  topicItems: ReactiveTopicItemData[];
-  addNewTopicItem: (args: NewTopicItemArgs) => void;
+  topicItems: ReactiveQuizItemData[];
+  addNewTopicItem: (args: NewQuizItemArgs) => void;
 };
 
 export type UpdateStateFunc<T> = (newState: T | ((entity: T) => T)) => void;

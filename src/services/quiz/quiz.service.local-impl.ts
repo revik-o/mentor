@@ -2,7 +2,7 @@ import {
   AnswerResult,
   LearnStatus,
   QuestionData,
-  TopicItemModel,
+  QuizItemModel,
 } from "../../types.d";
 import {
   randomizeArray,
@@ -26,8 +26,8 @@ export default class QuizLocalService implements IQuizService {
   ) {}
 
   private createAnswers(
-    currentItem: TopicItemModel,
-    itemsPtr: TopicItemModel[],
+    currentItem: QuizItemModel,
+    itemsPtr: QuizItemModel[],
   ): string[] {
     if (
       !LearnStatus.statusIncreased(
@@ -56,8 +56,8 @@ export default class QuizLocalService implements IQuizService {
   }
 
   private buildQuestion(
-    item: TopicItemModel,
-    itemsPtr: TopicItemModel[],
+    item: QuizItemModel,
+    itemsPtr: QuizItemModel[],
   ): QuestionData {
     return {
       answers: this.createAnswers(item, itemsPtr),
@@ -70,17 +70,17 @@ export default class QuizLocalService implements IQuizService {
   public async checkAnswer(result: string): Promise<AnswerResult> {
     if (this._currentQuestion.itemId >= 0) {
       const currentItem = await this._appStorage
-        .getTopicItemDao()
+        .getQuizItemDao()
         .getItemById(this._currentQuestion.itemId);
       const isCorrect =
         currentItem.meaningData.toLowerCase() === result.trim().toLowerCase();
 
       if (isCorrect) {
-        this._appStorage.getTopicItemDao().updateItem(currentItem.id, {
+        this._appStorage.getQuizItemDao().updateItem(currentItem.id, {
           learnStatus: LearnStatus.nextStatus(currentItem.learnStatus),
         });
       } else {
-        this._appStorage.getTopicItemDao().updateItem(currentItem.id, {
+        this._appStorage.getQuizItemDao().updateItem(currentItem.id, {
           learnStatus: LearnStatus.previousStatus(currentItem.learnStatus),
         });
       }
@@ -101,7 +101,7 @@ export default class QuizLocalService implements IQuizService {
     }
 
     const items = await this._appStorage
-      .getTopicItemDao()
+      .getQuizItemDao()
       .getAllItemsByTopicId(this._topicId, { sortBy: "learnStatus" });
     const itemsQueue = [...items]
       .splice(0, 5)
