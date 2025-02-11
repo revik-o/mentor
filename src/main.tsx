@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import { createRoot } from "react-dom/client";
-import IndexModule from "./modules/welcom/welcome.module";
+import IndexModule from "./modules/welcome/welcome.module";
 import TopicsModule from "./modules/topics/topics.module";
 import SinglePageApp from "./modules/single-page-app.module";
 import TopicItemsModule from "./modules/quiz/topic-items/topic-items.module";
