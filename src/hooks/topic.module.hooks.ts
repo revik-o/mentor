@@ -4,8 +4,8 @@ import {
   LearnStatus,
   ReactiveTopicData,
   ReactiveTopicsChunkData,
-  TopicModel,
-  TopicUpdateArgs,
+  QuizModel,
+  QuizTopicUpdateArgs,
   UpdateStateFunc,
 } from "../types.d";
 import {
@@ -21,27 +21,27 @@ import { AppNavigatorContext } from "../contexts/app.context";
 
 const MAX_CONTENT_SIZE = 25;
 
-function updateTopicsSiquence(topic: TopicModel) {
-  return (topics: TopicModel[]) =>
+function updateTopicsSiquence(topic: QuizModel) {
+  return (topics: QuizModel[]) =>
     topics.map((entity) => (entity.id === topic.id ? { ...topic } : entity));
 }
 
 function prepareRemoveTopicFunction(
   page: number,
-  topic: TopicModel,
+  topic: QuizModel,
   appStorage: IStorage,
   setHasNext: UpdateStateFunc<boolean>,
   setIsLoaded: UpdateStateFunc<boolean>,
-  setTopics: UpdateStateFunc<TopicModel[]>,
+  setTopics: UpdateStateFunc<QuizModel[]>,
 ) {
   return () => {
     setIsLoaded(false);
     appStorage
-      .getTopicDao()
+      .getQuizTopicDao()
       .deleteTopic(topic.id)
       .then(() =>
         appStorage
-          .getTopicDao()
+          .getQuizTopicDao()
           .getTopics(1, MAX_CONTENT_SIZE * page)
           .then((topics) => {
             setTopics(topics.data);
@@ -53,15 +53,15 @@ function prepareRemoveTopicFunction(
 }
 
 function prepareUpdateTopicFunction(
-  topic: TopicModel,
+  topic: QuizModel,
   appStorage: IStorage,
   setIsLoaded: UpdateStateFunc<boolean>,
-  setTopics: UpdateStateFunc<TopicModel[]>,
+  setTopics: UpdateStateFunc<QuizModel[]>,
 ) {
-  return (args: TopicUpdateArgs) => {
+  return (args: QuizTopicUpdateArgs) => {
     setIsLoaded(false);
     appStorage
-      .getTopicDao()
+      .getQuizTopicDao()
       .updateTopic(topic.id, args)
       .then((topic) => {
         setTopics(updateTopicsSiquence(topic));
@@ -83,7 +83,7 @@ export function useTopicId(): number {
     }
 
     return topicIdFormAppContext;
-  }, [topicId]);
+  }, [topicId, topicIdFormAppContext]);
 }
 
 export function useTopicModuleContext(): TopicModuleContextType {
@@ -94,13 +94,13 @@ export function useTopics(page: number): AsyncData<ReactiveTopicsChunkData> {
   const appStorage = useApplicationStorage();
   const [hasNext, setHasNext] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [cachedTopics, setCachedTopics] = useState<TopicModel[]>([]);
+  const [cachedTopics, setCachedTopics] = useState<QuizModel[]>([]);
   const addNewTopic = useCallback(
     (topicName: string) => {
       setIsLoaded(false);
 
       appStorage
-        .getTopicDao()
+        .getQuizTopicDao()
         .createNewQuizTopic(topicName.trim())
         .then((topic) => {
           setCachedTopics((cachedTopics) => [topic, ...cachedTopics]);
@@ -133,7 +133,7 @@ export function useTopics(page: number): AsyncData<ReactiveTopicsChunkData> {
 
   useEffect(() => {
     appStorage
-      .getTopicDao()
+      .getQuizTopicDao()
       .getTopics(page, MAX_CONTENT_SIZE)
       .then((topics) => {
         setHasNext(page < topics.totalPages);

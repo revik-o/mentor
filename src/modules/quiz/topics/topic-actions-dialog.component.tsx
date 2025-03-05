@@ -1,7 +1,7 @@
 import { ChangeEvent, ReactNode, useCallback, useMemo, useState } from "react";
-import { useTopicFromModuleContext } from "../../hooks/topic.module.hooks";
-import languageService from "../../services/language.service";
-import ConfirmationComponent from "../../components/confirmation/confirmation.component";
+import { useTopicFromModuleContext } from "../../../hooks/topic.module.hooks";
+import languageService from "../../../services/language.service";
+import ConfirmationComponent from "../../../components/confirmation/confirmation.component";
 import "./topic-actions-dialog-component.css";
 
 const lang = languageService.dictionary;

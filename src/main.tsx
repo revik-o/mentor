@@ -7,6 +7,7 @@ import TopicItemsModule from "./modules/quiz/topic-items/topic-items.module";
 import LearnModule from "./modules/quiz/learn/learn.module";
 import links from "./links.d";
 import "./index.css";
+import ExamItemsModule from "./modules/exam/topic-items/topic-items.module";
 
 const ANIMATION_DURATION = 500;
 
@@ -30,6 +31,7 @@ setTimeout(() => {
           element={<LearnModule />}
         />
         <Route path={links.singlePageApp} element={<SinglePageApp />} />
+        <Route path={links.examComponent} element={<ExamItemsModule />} />
         <Route path="*" element={<IndexModule />} />
       </Routes>
     </BrowserRouter>,

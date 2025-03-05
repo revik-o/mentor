@@ -1,9 +1,11 @@
-import IExamItemDao from "./dao/exam-item/exam-item.dao.interface";
-import IQuizItemDao from "./dao/quiz-item/quiz-item.dao.interface";
-import ITopicDao from "./dao/topic/topic.dao.interface";
+import IExamItemDao from "./dao/exam/item/exam-item.dao.interface";
+import IExamTopicDao from "./dao/exam/topic/topic.dao.interface";
+import IQuizItemDao from "./dao/quiz/item/quiz-item.dao.interface";
+import IQuizTopicDao from "./dao/quiz/topic/topic.dao.interface";
 
 export default interface IStorage {
-  getTopicDao(): ITopicDao;
+  getQuizTopicDao(): IQuizTopicDao;
   getQuizItemDao(): IQuizItemDao;
+  getExamTopicDao(): IExamTopicDao;
   getExamItemDao(): IExamItemDao;
 }

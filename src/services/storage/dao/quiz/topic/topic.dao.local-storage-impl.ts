@@ -1,16 +1,14 @@
 import {
   Page,
-  TopicModel,
-  TopicType,
-  TopicUpdateArgs,
-} from "../../../../types.d";
-import IStorage from "../../storage.service.interface";
-import ExamItemLocalStorageDao from "../exam-item/exam-item.dao.local-storage-impl";
-import QuizItemDaoLocalStorageImpl from "../quiz-item/quiz-item.dao.local-storage-impl";
-import ITopicDao from "./topic.dao.interface";
+  QuizModel,
+  QuizTopicUpdateArgs,
+} from "../../../../../types.d";
+import IStorage from "../../../storage.service.interface";
+import QuizItemDaoLocalStorageImpl from "../item/quiz-item.dao.local-storage-impl";
+import IQuizTopicDao from "./topic.dao.interface";
 
-export default class TopicDaoLocalStorageImpl implements ITopicDao {
-  private readonly _tableName = "topic_table";
+export default class QuizTopicDaoLocalStorageImpl implements IQuizTopicDao {
+  private readonly _tableName = "quiz_topic_table";
 
   public constructor(private readonly _storage: IStorage) {}
 
@@ -18,31 +16,25 @@ export default class TopicDaoLocalStorageImpl implements ITopicDao {
     return this._storage.getQuizItemDao() as unknown as QuizItemDaoLocalStorageImpl;
   }
 
-  private getExamItemDao(): ExamItemLocalStorageDao {
-    return this._storage.getExamItemDao() as unknown as ExamItemLocalStorageDao;
-  }
-
-  private getTableData(): TopicModel[] {
+  private getTableData(): QuizModel[] {
     const strTableData = localStorage.getItem(this._tableName);
 
     if (strTableData) {
-      return JSON.parse(strTableData) as TopicModel[];
+      return JSON.parse(strTableData) as QuizModel[];
     }
 
-    const emptyResult: TopicModel[] = [];
+    const emptyResult: QuizModel[] = [];
     localStorage.setItem(this._tableName, JSON.stringify(emptyResult));
     return emptyResult;
   }
 
   private async createNewTopic(
     name: string,
-    type: TopicType,
-  ): Promise<TopicModel> {
+  ): Promise<QuizModel> {
     if (name) {
       const tableData = this.getTableData();
-      const newTopic: TopicModel = {
+      const newTopic: QuizModel = {
         id: tableData.length === 0 ? 0 : tableData[0].id + 1,
-        type,
         name,
       };
       localStorage.setItem(
@@ -61,13 +53,7 @@ export default class TopicDaoLocalStorageImpl implements ITopicDao {
 
     if (id >= 0) {
       const topic = await this.getTopic(id);
-
-      if (topic.type === TopicType.Quiz) {
-        await this.getQuizItemDao().deleteItemsByTopicId(topic.id);
-      } else {
-        await this.getExamItemDao().deleteItemsByTopicId(topic.id);
-      }
-
+      await this.getQuizItemDao().deleteItemsByTopicId(topic.id);
       localStorage.setItem(
         this._tableName,
         JSON.stringify(
@@ -82,9 +68,9 @@ export default class TopicDaoLocalStorageImpl implements ITopicDao {
   public async getTopics(
     page: number,
     maxSize: number,
-  ): Promise<Page<TopicModel>> {
+  ): Promise<Page<QuizModel>> {
     if (page > 0 && maxSize > 0) {
-      const result: TopicModel[] = [];
+      const result: QuizModel[] = [];
       const validPageValue = page - 1;
       const availableLastIndex = maxSize * validPageValue + maxSize;
       const tableData = this.getTableData();
@@ -107,7 +93,7 @@ export default class TopicDaoLocalStorageImpl implements ITopicDao {
     throw new Error("Unexpected arguments");
   }
 
-  public async getTopic(id: number): Promise<TopicModel> {
+  public async getTopic(id: number): Promise<QuizModel> {
     if (id >= 0) {
       const result = this.getTableData().find((topic) => topic.id === id);
 
@@ -119,18 +105,14 @@ export default class TopicDaoLocalStorageImpl implements ITopicDao {
     throw new Error("Unexpected arguments");
   }
 
-  public async createNewQuizTopic(name: string): Promise<TopicModel> {
-    return await this.createNewTopic(name, TopicType.Quiz);
-  }
-
-  public async createNewExamTopic(name: string): Promise<TopicModel> {
-    return await this.createNewTopic(name, TopicType.Exam);
+  public async createNewQuizTopic(name: string): Promise<QuizModel> {
+    return await this.createNewTopic(name);
   }
 
   public async updateTopic(
     id: number,
-    args: TopicUpdateArgs,
-  ): Promise<TopicModel> {
+    args: QuizTopicUpdateArgs,
+  ): Promise<QuizModel> {
     const tableData = this.getTableData();
 
     if (id >= 0) {

@@ -1,10 +1,10 @@
 import { ReactNode, useCallback, useState } from "react";
-import { ReactiveTopicData } from "../../types.d";
-import { useTopicFullInfo } from "../../hooks/topic.module.hooks";
-import { useApplicationNavigator } from "../../hooks/general.hooks";
+import { ReactiveTopicData } from "../../../types.d";
+import { useTopicFullInfo } from "../../../hooks/topic.module.hooks";
+import { useApplicationNavigator } from "../../../hooks/general.hooks";
 import TopicActionsDialogComponents from "./topic-actions-dialog.component";
-import FloatingDialogComponent from "../../components/floating-dialog/floating-dialog.component";
-import links from "../../links.d";
+import FloatingDialogComponent from "../../../components/floating-dialog/floating-dialog.component";
+import links from "../../../links.d";
 import "./topic-component.css";
 
 interface Properties {

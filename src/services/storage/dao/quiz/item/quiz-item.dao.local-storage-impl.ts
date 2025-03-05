@@ -5,7 +5,7 @@ import {
   StorageRequestOptions,
   QuizItemModel,
   QuizItemUpdateArgs,
-} from "../../../../types.d";
+} from "../../../../../types.d";
 import IQuizItemDao from "./quiz-item.dao.interface";
 
 export default class QuizItemDaoLocalStorageImpl implements IQuizItemDao {

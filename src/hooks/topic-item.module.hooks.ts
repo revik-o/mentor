@@ -133,7 +133,7 @@ export function useTopicItems(
   );
 
   useEffect(() => {
-    appStorage.getTopicDao().getTopic(topicId);
+    appStorage.getQuizTopicDao().getTopic(topicId);
     appStorage
       .getQuizItemDao()
       .getItemsByTopicId(topicId, page, MAX_CONTENT_SIZE)

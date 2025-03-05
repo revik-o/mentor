@@ -5,7 +5,7 @@ import {
   NewExamItemArgs,
   ExamItemUpdateArgs,
   LearnStatus,
-} from "../../../../types.d";
+} from "../../../../../types.d";
 import IExamItemDao from "./exam-item.dao.interface";
 
 export default class ExamItemLocalStorageDao implements IExamItemDao {

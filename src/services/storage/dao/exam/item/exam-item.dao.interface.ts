@@ -4,7 +4,7 @@ import {
   NewExamItemArgs,
   Page,
   StorageRequestOptions,
-} from "../../../../types.d";
+} from "../../../../../types.d";
 
 export default interface IExamItemDao {
   deleteItem(id: number): Promise<void>;
