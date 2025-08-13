@@ -1,0 +1,24 @@
+{
+  "name": "mentor",
+  "version": "1.0.0",
+  "description": "",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "app:web:start": "cd apps/web/dist && npm run dev",
+    "app:web:build": "cd apps/web/dist && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/revik-o/mentor.git"
+  },
+  "keywords": [],
+  "author": "oleg.03.07.2000@gmail.com",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/revik-o/mentor/issues"
+  },
+  "homepage": "https://github.com/revik-o/mentor#readme"
+}

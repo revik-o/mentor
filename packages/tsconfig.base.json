@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@mentor/core/*": ["core/src/*"]
+    }
+  },
+  "include": ["core"]
+}

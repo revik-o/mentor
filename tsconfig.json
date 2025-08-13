@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "lib": ["ES2024", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@mentor/app/*": ["./apps/web/src/*"],
+      "@mentor/core": ["./packages/core/src/index.ts"],
+      "@mentor/utils": ["./packages/utils/src/index.ts"],
+      "@mentor/service": ["./packages/service/src/index.ts"]
+    }
+  },
+  "include": ["packages", "apps"],
+  "exclude": ["dist", "tests"]
+}

@@ -1,0 +1,44 @@
+@media (prefers-color-scheme: dark) {
+  body {
+      --nav-bg-color: #ffffff;
+      --main-bg-color: black;
+      --main-text-color: black;
+      --common-button-bg-color: #3d3d3d;
+      --common-button-text-color: white;
+      --fragment-bg-color: #e0e0e0;
+      --fragment-part-one-bg-color: #3d3d3d;
+      --fragment-part-one-text-color: white;
+      --fragment-part-two-bg-color: #bbbbbb;
+      --fragment-part-two-text-color: black;
+      --fragment-tiny-item-bg-color: #3a3a3a;
+      --fragment-tiny-item-text-color: white;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+      --nav-bg-color: #0c1e3a;
+      --main-bg-color: white;
+      --main-text-color: black;
+      --common-button-bg-color: #3d3d3d;
+      --common-button-text-color: white;
+      --fragment-bg-color: #103157;
+      --fragment-part-one-bg-color: #1b1c20;
+      --fragment-part-one-text-color: white;
+      --fragment-part-two-bg-color: #154979;
+      --fragment-part-two-text-color: white;
+      --fragment-tiny-item-bg-color: #e6e6e6;
+      --fragment-tiny-item-text-color: #222222;
+  }
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: var(--main-bg-color);
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

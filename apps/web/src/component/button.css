@@ -1,0 +1,5 @@
+.mentor-button {
+    border: none;
+    background-color: var(--common-button-bg-color);
+    color: var(--common-button-text-color);
+}
